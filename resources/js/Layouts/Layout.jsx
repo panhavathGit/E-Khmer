@@ -1,0 +1,24 @@
+import { Link } from '@inertiajs/react'
+
+export default function Layout({ children }) {
+  return (
+    <main className="min-h-screen bg-gray-100">
+      <header className="bg-white shadow">
+        <div className="container mx-auto flex items-center justify-between p-4">
+          <div className="text-xl font-bold text-blue-600">
+            E-Khmer
+          </div>
+          <nav className="space-x-6">
+            <Link href="/" className="text-gray-700 hover:text-blue-500">Home</Link>
+            <Link href="/products/dashboard" className="text-gray-700 hover:text-blue-500">Dashboard</Link>
+            <Link href="/about" className="text-gray-700 hover:text-blue-500">About</Link>
+            <Link href="/contact" className="text-gray-700 hover:text-blue-500">Contact</Link>
+          </nav>
+        </div>
+      </header>
+      <article className="p-4">
+        {children}
+      </article>
+    </main>
+  )
+}
