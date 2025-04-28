@@ -11,7 +11,7 @@ class ProductController extends Controller
      // Display a listing of the products
      public function index()
      {
-         $products = Product::all();
+         $products = Product::orderBy('created_at', 'asc')->get();
          return Inertia::render('Products/Index', [
              'products' => $products,
          ]);
@@ -40,17 +40,16 @@ class ProductController extends Controller
      }
  
      // Update the specified product in the database
-     public function update(Request $request, Product $product)
-     {
-         $request->validate([
-             'name' => 'required|string',
-             'price' => 'required|numeric',
-         ]);
- 
-         $product->update($request->all());
- 
-         return redirect('/products/dashboard');
-     }
+     public function update(Request $request, $id)
+     {  
+        $product = Product::find($id);
+
+        if ($product) {
+            $product->update($request->all());   
+        }
+
+        return redirect('/products/dashboard');
+     }  
  
      // Remove the specified product from the database
      public function destroy($id)

@@ -9,12 +9,27 @@ export default function EditProductModal({ id, product }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(`/products/${product.id}`, {
+        put(`/products/update/${product.id}`, {
             onSuccess: () => {
+                setData({
+                    name: product.name,  
+                    price: product.price, 
+                }); 
+
                 reset();
                 document.getElementById(id).close();
             },
         });
+    };
+
+    const handleCancel = () => {
+        setData({
+            name: product.name, // Reset to initial product values
+            price: product.price, // Reset to initial product values
+        });
+
+        reset(); // Reset form state
+        document.getElementById(id).close(); // Close modal
     };
 
     return (
@@ -77,10 +92,7 @@ export default function EditProductModal({ id, product }) {
                             <button
                                 type="button"
                                 className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"
-                                onClick={() => {
-                                    reset();
-                                    document.getElementById(id).close();
-                                }}
+                                onClick={handleCancel}  // Use handleCancel to reset the form on cancel
                             >
                                 Cancel
                             </button>

@@ -58,11 +58,11 @@ const Dashboard = () => {
                                         <div className="flex gap-3">
                                             {/* Correct the id and props */}
                                             <EditProductModal
-                                                id={`delete_modal`}
+                                                id={`edit_modal_${product.id}`}
                                                 product = {product}
                                             />
                                             <ModalDelete
-                                                id={`delete_modal`}
+                                                id={`delete_modal_${product.id}`}
                                                 product={product}
                                             />
                                         </div>

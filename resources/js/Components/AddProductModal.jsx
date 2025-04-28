@@ -12,9 +12,22 @@ export default function AddProductModal({ id }) {
         post("/products/create", {
             onSuccess: () => {
                 reset();
+                setData({
+                    name: "",  
+                    price: "", 
+                });
                 document.getElementById(id).close();
             },
         });
+    };
+
+    const handleCancel = () => {
+        reset(); // Reset form validation and errors
+        setData({
+            name: "",  // Manually reset form data to empty
+            price: "", // Manually reset form data to empty
+        });
+        document.getElementById(id).close(); // Close the modal
     };
 
     return (
@@ -23,7 +36,7 @@ export default function AddProductModal({ id }) {
                 onClick={() => document.getElementById(id).showModal()}
                 className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-400 focus:outline-none rounded-md font-semibold text-sm text-white uppercase tracking-wider transition"
             >
-            Add Product
+                Add Product
             </button>
 
             <dialog id={id} className="modal">
@@ -77,10 +90,7 @@ export default function AddProductModal({ id }) {
                             <button
                                 type="button"
                                 className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"
-                                onClick={() => {
-                                    reset();
-                                    document.getElementById(id).close();
-                                }}
+                                onClick={handleCancel} // Use handleCancel to reset form on cancel
                             >
                                 Cancel
                             </button>

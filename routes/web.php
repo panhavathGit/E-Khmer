@@ -9,12 +9,12 @@ use App\Http\Controllers\ProfileController;
 Route::post('/products/create', [ProductController::class, 'store']);
 Route::get('/', [ProductController::class, 'index']);
 Route::delete('/products/delete/{id}',[ProductController::class, 'destroy']);
-Route::put('/products/update/{id}',[ProductController::class, 'destroy']);
+Route::put('/products/update/{id}',[ProductController::class, 'update']);
 Route::get('/products/dashboard', [ProductController::class,'dashboard']);
 Route::get('/about', function(){
     return Inertia::render('About');
 });
-Route::get('/contact', function(){
+Route::get('/contact', function(){  
     return Inertia::render('Contact');
 });
 
