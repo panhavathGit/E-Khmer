@@ -1,4 +1,5 @@
 import { useForm } from "@inertiajs/react";
+import { toast } from "react-toastify";
 
 export default function EditProductModal({ id, product }) {
     const { data, setData, put, processing, reset, errors } = useForm({
@@ -8,20 +9,20 @@ export default function EditProductModal({ id, product }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    
         put(`/products/update/${product.id}`, {
             onSuccess: () => {
+                toast.success("Edited Successfully",{ autoClose: 2000 });
                 setData({
-                    name: product.name,  
-                    price: product.price, 
-                }); 
-
+                    name: product.name,
+                     price: product.price,
+                });
                 reset();
-                document.getElementById(id).close();
+                document.getElementById(id).close();       
             },
         });
     };
-
+    
     const handleCancel = () => {
         setData({
             name: product.name, // Reset to initial product values
@@ -34,6 +35,7 @@ export default function EditProductModal({ id, product }) {
 
     return (
         <>
+            
             <button
                 onClick={() => document.getElementById(id).showModal()}
                 className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-400 focus:outline-none rounded-md font-semibold text-sm text-white tracking-wider transition"

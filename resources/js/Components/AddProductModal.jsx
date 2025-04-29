@@ -1,4 +1,5 @@
 import { useForm } from "@inertiajs/react";
+import { toast , ToastContainer} from "react-toastify";
 
 export default function AddProductModal({ id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -17,6 +18,7 @@ export default function AddProductModal({ id }) {
                     price: "", 
                 });
                 document.getElementById(id).close();
+                toast.success("Product added Successfully",{ autoClose: 3000 });
             },
         });
     };
@@ -31,7 +33,9 @@ export default function AddProductModal({ id }) {
     };
 
     return (
-        <>
+        <>  
+        
+            {/* <ToastContainer/> */}
             <button
                 onClick={() => document.getElementById(id).showModal()}
                 className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-400 focus:outline-none rounded-md font-semibold text-sm text-white uppercase tracking-wider transition"

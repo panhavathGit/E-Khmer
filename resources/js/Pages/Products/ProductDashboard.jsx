@@ -1,15 +1,17 @@
 import React from "react";
 import { usePage, router } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
+import { ToastContainer } from "react-toastify";
+import { FaRegEdit } from "react-icons/fa";
 import ModalDelete from "../../Components/DeleteProductModal";
 import AddProductModal from "../../Components/AddProductModal"; 
 import EditProductModal from "../../Components/EditProductModal"; 
 const Dashboard = () => {
     const { products } = usePage().props;
 
-    const handleEdit = (product) => {
-        setEditingProduct(product); // If you implement edit later
-    };
+    // const handleEdit = (product) => {
+    //     setEditingProduct(product); // If you implement edit later
+    // };
 
     return (
         <div className="p-8">
@@ -19,7 +21,7 @@ const Dashboard = () => {
                 </h1>
                 <AddProductModal id="add_product" />
             </div>
-
+            <ToastContainer/>
             {products.length > 0 ? (
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border border-gray-200">
@@ -35,7 +37,10 @@ const Dashboard = () => {
                                     Price
                                 </th>
                                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b">
+                                <div className="flex items-center gap-1">
+                                    <FaRegEdit />
                                     Actions
+                                </div>
                                 </th>
                             </tr>
                         </thead>
