@@ -4,10 +4,14 @@ import Layout from "../../Layouts/Layout";
 import { ToastContainer } from "react-toastify";
 import { FaRegEdit } from "react-icons/fa";
 import ModalDelete from "../../Components/DeleteProductModal";
-import AddProductModal from "../../Components/AddProductModal"; 
-import EditProductModal from "../../Components/EditProductModal"; 
+import AddProductModal from "../../Components/AddProductModal";
+import EditProductModal from "../../Components/EditProductModal";
 const Dashboard = () => {
     const { products } = usePage().props;
+
+    const { auth } = usePage().props;
+    const can = auth?.can ?? {};
+    console.log("my log: ", can);
 
     // const handleEdit = (product) => {
     //     setEditingProduct(product); // If you implement edit later
@@ -19,9 +23,9 @@ const Dashboard = () => {
                 <h1 className="text-3xl font-bold text-blue-600">
                     All Products
                 </h1>
-                <AddProductModal id="add_product" />
+                {can["product-create"] && <AddProductModal id="add_product" />}
             </div>
-            <ToastContainer/>
+            <ToastContainer />
             {products.length > 0 ? (
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border border-gray-200">
@@ -37,10 +41,10 @@ const Dashboard = () => {
                                     Price
                                 </th>
                                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border-b">
-                                <div className="flex items-center gap-1">
-                                    <FaRegEdit />
-                                    Actions
-                                </div>
+                                    <div className="flex items-center gap-1">
+                                        <FaRegEdit />
+                                        Actions
+                                    </div>
                                 </th>
                             </tr>
                         </thead>
@@ -62,14 +66,19 @@ const Dashboard = () => {
                                     <td className="px-6 py-4 text-sm text-gray-900 border-b space-x-2">
                                         <div className="flex gap-3">
                                             {/* Correct the id and props */}
-                                            <EditProductModal
-                                                id={`edit_modal_${product.id}`}
-                                                product = {product}
-                                            />
-                                            <ModalDelete
+                                            {can["product-update"] && (
+                                                <EditProductModal
+                                                    id={`edit_modal_${product.id}`}
+                                                    product={product}
+                                                />
+                                            )}
+                                            {can["product-update"] && (
+                                                <ModalDelete
                                                 id={`delete_modal_${product.id}`}
                                                 product={product}
                                             />
+                                            )}
+                                            
                                         </div>
                                     </td>
                                 </tr>

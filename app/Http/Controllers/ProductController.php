@@ -11,7 +11,8 @@ class ProductController extends Controller
      // Display a listing of the products
      public function index()
      {
-         $products = Product::orderBy('created_at', 'asc')->get();
+        //  $products = Product::orderBy('created_at', 'asc')->get();
+         $products = Product::all();
          return Inertia::render('Products/Index', [
              'products' => $products,
          ]);
